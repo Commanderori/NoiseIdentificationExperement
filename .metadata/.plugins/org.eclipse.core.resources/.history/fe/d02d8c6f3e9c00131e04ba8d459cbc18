@@ -1,0 +1,47 @@
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+@SuppressWarnings("serial")
+public class ITNSwingGUI extends JFrame implements ActionListener {
+	JFrame mypanel;
+	JButton mybutton;
+	JLabel mylabel;
+	
+	public ITNSwingGUI(){
+		mypanel = new JFrame();
+		
+		mybutton = new JButton("OK");
+		mybutton.addActionListener(this);
+		
+		mylabel = new JLabel();
+		
+		mypanel.add(mybutton);
+		mypanel.add(mylabel);
+		getContentPane().add(mypanel);
+		
+	}
+
+
+public static void main(String[] args){
+	ITNSwingGUI first = new ITNSwingGUI();
+	first.setTitle("This is a frame.");
+	first.setSize(600,600);
+	first.setLocation(100,100);
+	first.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	first.setVisible(true);
+}
+@Override
+public void actionPerformed(ActionEvent event){
+	if(event.getSource()==mybutton)
+	{
+		if(mylabel.getText() == "My button clicked."){
+			mylabel.setText("Yes, it's still my button.");
+		}
+		else{
+			mylabel.setText("My button clicked.");
+		}
+		
+	}
+}
+}

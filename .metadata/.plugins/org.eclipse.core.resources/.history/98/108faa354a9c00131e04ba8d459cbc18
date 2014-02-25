@@ -1,0 +1,51 @@
+import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+
+
+public class Screentest extends JFrame {
+
+	@SuppressWarnings("unused")
+	public static void main(String[] args) {
+		
+		JFrame Testframe = new Screentest();
+		Testframe.setTitle("Hello, I'm a Title.");
+		Testframe.setSize(400,400);
+		Testframe.setLocation(300,300);
+		Testframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		Testframe.setVisible(true);
+		
+		Testframe.setLayout(new FlowLayout());
+		
+		JButton mybutton= new JButton("Click Here");
+		Testframe.add(mybutton);
+		
+		ButtonHandeler MyButtonHandeler = new ButtonHandeler();
+		mybutton.addActionListener(MyButtonHandeler); //associates the button that creates the event with an object that can use it.
+		
+		JButton OtherButton= new JButton("ROARbutton");
+		Testframe.add(OtherButton);
+		
+		OtherButton.addActionListener(
+				new ActionListener() {				
+					@Override
+					public void actionPerformed(ActionEvent EventMK2) {
+						System.out.println("ROAR");
+						}
+				});
+	}
+	
+	static class ButtonHandeler implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent EventMKI) {
+			System.out.println("I have been poked!");
+			System.out.println(EventMKI);
+		}
+		
+	}
+}
+

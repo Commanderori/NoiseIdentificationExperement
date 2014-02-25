@@ -1,0 +1,27 @@
+import java.awt.FlowLayout;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+
+
+public class Screentest extends JFrame {
+
+	public static void main(String[] args) {
+		
+		JFrame Testframe = new Screentest();
+		Testframe.setTitle("Hello, I'm a Title.");
+		Testframe.setSize(400,400);
+		Testframe.setLocation(300,300);
+		Testframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		Testframe.setVisible(true);
+		
+		Testframe.setLayout(new FlowLayout());
+		
+		JButton mybutton= new JButton("Click Here");
+		Testframe.add(mybutton);
+		
+		
+
+	}
+
+}
