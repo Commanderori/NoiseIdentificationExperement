@@ -1,0 +1,128 @@
+import java.awt.Component;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
+
+public class MainScreen implements KeyListener {
+
+	private JFrame frame;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					MainScreen window = new MainScreen();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the application.
+	 */
+	public MainScreen() {
+		initialize();
+	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		frame = new JFrame();
+		frame.setBounds(100, 100, 600, 600);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
+		
+		JLabel LabelKeyboard = new JLabel("Hand Placement");
+		LabelKeyboard.setIcon(new ImageIcon("images/keyboardFingerPlacement.jpg"));
+		LabelKeyboard.setBounds(40, 72, 504, 426);
+		frame.getContentPane().add(LabelKeyboard);
+		
+		JLabel LabelCompKittenNoise = new JLabel("Yellow Kitten under noise");
+		LabelCompKittenNoise.setIcon(new ImageIcon("images/YellowKitten.jpg"));
+		LabelCompKittenNoise.setBounds(40, 58, 504, 426);
+		LabelCompKittenNoise.setVisible(false);
+		frame.getContentPane().add(LabelCompKittenNoise);
+		
+		JLabel LabelCompKitten1 = new JLabel("Gray Kitten");
+		LabelCompKitten1.setIcon(new ImageIcon("images/GrayKitten.jpg"));
+		LabelCompKitten1.setBounds(40, 196, 256, 333);
+		LabelCompKitten1.setVisible(false);
+		frame.getContentPane().add(LabelCompKitten1);
+		
+		JLabel LabelCompKitten2 = new JLabel("Other Yellow Kitten");
+		LabelCompKitten2.setIcon(new ImageIcon("images/YellowKittyTwo.jpg"));
+		LabelCompKitten2.setBounds(306, 196, 256, 333);
+		LabelCompKitten2.setVisible(false);
+		frame.getContentPane().add(LabelCompKitten2);
+		frame.addKeyListener(this);
+	}
+	
+	//http://forums.codeguru.com/showthread.php?39273-Display-Hide-Swing-Components used for reference for all 3 show commands.
+	private void showKeyboard(){ //Show Tutorial Image I
+		Component[] components = frame.getContentPane().getComponents();
+		components[0].setVisible(true);
+		components[1].setVisible(false);
+		components[2].setVisible(false);
+		components[3].setVisible(false);
+	}
+	
+	private void showKittenNoise(){ //Show Tutorial Image II
+		Component[] components = frame.getContentPane().getComponents();
+		components[0].setVisible(false);
+		components[1].setVisible(true);
+		components[2].setVisible(false);
+		components[3].setVisible(false);
+	}
+	
+	private void showKittenComparison(){ //Show Tutorial Image III
+		Component[] components = frame.getContentPane().getComponents();
+		components[0].setVisible(false);
+		components[1].setVisible(false);
+		components[2].setVisible(true);
+		components[3].setVisible(true);
+	}
+	@Override
+	public void keyTyped(KeyEvent inputKey){
+
+		
+	}
+
+	@Override
+	public void keyPressed(KeyEvent inputKey) {
+		if (inputKey.getKeyChar() == ' '){
+			showKeyboard();
+		}
+		else if (inputKey.getKeyChar() == 'j'){
+			showKittenNoise();
+		}
+		else if (inputKey.getKeyChar() == 'f'){
+			showKittenComparison();
+		}
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent inputKey) {
+		// TODO Auto-generated method stub
+		
+	}
+}
+
+
+
