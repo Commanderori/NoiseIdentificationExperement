@@ -55,10 +55,17 @@ public class MainScreen implements KeyListener {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
+		JLabel labelNoiseOverlay = new JLabel("This label is noisy");
+		labelNoiseOverlay.setIcon(new ImageIcon("images/BR1.png"));
+		labelNoiseOverlay.setHorizontalAlignment(SwingConstants.CENTER);
+		labelNoiseOverlay.setBounds(40, 58, 504, 426);
+		labelNoiseOverlay.setVisible(false);
+		
 		JLabel LabelKeyboard = new JLabel(" ");
 		LabelKeyboard.setIcon(new ImageIcon("images/keyboardFingerPlacement.jpg"));
 		LabelKeyboard.setBounds(40, 72, 504, 426);
 		frame.getContentPane().add(LabelKeyboard);
+		frame.getContentPane().add(labelNoiseOverlay);
 		
 		JLabel LabelCompKittenNoise = new JLabel(" ");
 		LabelCompKittenNoise.setIcon(new ImageIcon("images/YellowKitten.jpg"));
@@ -90,31 +97,27 @@ public class MainScreen implements KeyListener {
 		lableNextKey.setBounds(10, 521, 564, 30);
 		frame.getContentPane().add(lableNextKey);
 		
-		JLabel labelStartTimer = new JLabel("1");
-		labelStartTimer.setFont(new Font("Times New Roman", Font.BOLD, 15));
-		labelStartTimer.setHorizontalAlignment(SwingConstants.CENTER);
-		labelStartTimer.setBounds(250, 264, 92, 30);
-		labelStartTimer.setVisible(false);
-		
-		frame.getContentPane().add(labelStartTimer);
 		frame.addKeyListener(this);
 	}
 	
 	//http://forums.codeguru.com/showthread.php?39273-Display-Hide-Swing-Components used for reference for these show commands.
 	private void showKittenNoise(){ //Show Tutorial Image II
 		Component[] components = frame.getContentPane().getComponents();
-		components[0].setVisible(false);
-		components[1].setVisible(true);
-		components[2].setVisible(false);
-		components[3].setVisible(false);
+		components[0].setVisible(false);//noise overlay
+		components[1].setVisible(true);//keyboard image
+		components[2].setVisible(true);//kitten with noise
+		components[3].setVisible(false);//comparison kitten 1
+		components[4].setVisible(false);//comparison kitten 2.
+		
 	}
 	
 	private void showKittenComparison(){ //Show Tutorial Image III
 		Component[] components = frame.getContentPane().getComponents();
 		components[0].setVisible(false);
 		components[1].setVisible(false);
-		components[2].setVisible(true);
+		components[2].setVisible(false);
 		components[3].setVisible(true);
+		components[4].setVisible(true);
 	}
 	
 	private void hideAll(){ //hide all of the tutorial images.
@@ -123,7 +126,8 @@ public class MainScreen implements KeyListener {
 		components[1].setVisible(false);
 		components[2].setVisible(false);
 		components[3].setVisible(false);
-		components[5].setVisible(false);
+		components[4].setVisible(false);
+		components[6].setVisible(false);
 	}
 	
 	
@@ -137,16 +141,16 @@ public class MainScreen implements KeyListener {
 		final Component[] components = frame.getContentPane().getComponents();//tells the event what components (objects on the screen) exist.
 		if (inputKey.getKeyChar() == ' '){
 			if (TutorialPosition == 0){
-				((JLabel) components[4]).setText("This is an example of the image covered in noise you will see."); // you must tell the program that the component it is talking to is a JLabel or it wont work.
-				((JLabel) components[5]).setText("Press space bar to continue.");
+				((JLabel) components[5]).setText("This is an example of the image covered in noise you will see."); // you must tell the program that the component it is talking to is a JLabel or it wont work.
+				((JLabel) components[6]).setText("Press space bar to continue.");
 				showKittenNoise();
 				TutorialPosition += 1;
 			}
 			
 			else if (TutorialPosition == 1){
 				showKittenComparison();
-				((JLabel) components[4]).setText(" Press F for the left or J for the right image. chose the one closest to the initial image.");
-				((JLabel) components[5]).setText("Please press the j key to continue");
+				((JLabel) components[5]).setText(" Press F for the left or J for the right image. chose the one closest to the initial image.");
+				((JLabel) components[6]).setText("Please press the j key to continue");
 				TutorialPosition += 1;
 			}
 			
@@ -162,14 +166,14 @@ public class MainScreen implements KeyListener {
 		}
 		else if (inputKey.getKeyChar() == 'j'){
 			if (TutorialPosition == 2 ){
-				((JLabel) components[4]).setText("Very good. Now press the space bar to begin the experement.");
+				((JLabel) components[5]).setText("Very good. Now press the space bar to begin the experement.");
 				hideAll();
 				TutorialPosition+= 1;
 			}
 		}
 		else if (inputKey.getKeyChar() == 'f'){
 			if(TutorialPosition == 2){
-				((JLabel) components[4]).setText("That was the f key. The Gray kitten does not match the first yellow kitten.");
+				((JLabel) components[5]).setText("That was the f key. The Gray kitten does not match the first yellow kitten.");
 			}
 		}
 		
