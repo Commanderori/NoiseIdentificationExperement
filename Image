@@ -1,0 +1,47 @@
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+
+
+public class Image {  //no constructor for everything yet, as I haven't gotten FolderTraversar where I want it yet.
+  
+      //private BufferedImage image; 
+      private String[] images = new String[15];
+      private int index;
+      private String spImage1;
+      private String spImage2; //Both of these are the two sample images for each folder.
+      
+      public Image (){
+      
+        index = 0;
+      }
+      
+      public returnImage(int index){ //index may be deteremined with Image but for now it requires outside input
+      
+        return images[index];
+        
+      }
+      
+      public returnSpImage1() {
+        
+        return spImage1;
+        
+      }
+      
+      public returnSpImage2() {
+      
+        return spImage2;
+      
+      }
+      
+      //I haven't had a chance yet to see how Swing handles images
+      
+      /*
+      public insertImage(){
+      
+      
+      }
+      */
+}
