@@ -1,0 +1,10 @@
+
+public class ImageHandler {
+	private int numberOfCompConditions;
+	private int numberOfNoiseConditions;
+	private String[] coiseConditionArray;
+	private String[] comparasonConditionArray;
+	
+	
+	
+}
