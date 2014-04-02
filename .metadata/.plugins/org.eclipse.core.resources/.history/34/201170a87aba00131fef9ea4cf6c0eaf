@@ -373,13 +373,7 @@ System.out.print("Random1 is " +A1 + " and Random 2 is " +B1 + "\n");
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) { // this is the call that the timer makes.
-		int delayBetweenImages = 1000;
 		swapComparisonForNoise();
-		delayBetweenImages += (int)(Math.random()*50)+250;
-		tickover = new Timer(delayBetweenImages, this);
-		//tickover.setInitialDelay(0);
-		tickover.setRepeats(false);
-		tickover.start(); 
 	}	
 }
 

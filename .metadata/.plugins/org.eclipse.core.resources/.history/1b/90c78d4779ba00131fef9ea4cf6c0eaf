@@ -249,9 +249,8 @@ System.out.print("Random1 is " +A1 + " and Random 2 is " +B1 + "\n");
 				((JLabel) components[7]).paintImmediately(0,0,218,300);//this line is required to make the label show before the delay.
 				components[5].setVisible(false);
 				components[7].setVisible(false);
-				tickover = new Timer(0, this);
-				tickover.setInitialDelay(0);
-				tickover.setRepeats(false);
+				tickover = new Timer(5000, this);
+				tickover.setInitialDelay(1000);
 				tickover.start(); 
 				TutorialPosition +=1;
 				
@@ -276,8 +275,8 @@ System.out.print("Random1 is " +A1 + " and Random 2 is " +B1 + "\n");
 					((JLabel) components[7]).setIcon( new ImageIcon(ImageIO.read( new File(imageName) ) ) );
 				} catch (IOException e) {
 					e.printStackTrace();
-				}//http://stackoverflow.com/questions/1567445/how-to-change-icon-of-a-jlabel
-				swapComparisonForNoise();*/
+				}//http://stackoverflow.com/questions/1567445/how-to-change-icon-of-a-jlabel*/
+				swapComparisonForNoise();
 				TrialCounter+=1;
 			}
 		}
@@ -294,9 +293,9 @@ System.out.print("Random1 is " +A1 + " and Random 2 is " +B1 + "\n");
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-				}//http://stackoverflow.com/questions/1567445/how-to-change-icon-of-a-jlabel
-				swapComparisonForNoise();*/
+				}//http://stackoverflow.com/questions/1567445/how-to-change-icon-of-a-jlabel*/
 				TrialCounter+=1;
+				swapComparisonForNoise();
 			}
 		}
 		
@@ -373,13 +372,7 @@ System.out.print("Random1 is " +A1 + " and Random 2 is " +B1 + "\n");
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) { // this is the call that the timer makes.
-		int delayBetweenImages = 1000;
 		swapComparisonForNoise();
-		delayBetweenImages += (int)(Math.random()*50)+250;
-		tickover = new Timer(delayBetweenImages, this);
-		//tickover.setInitialDelay(0);
-		tickover.setRepeats(false);
-		tickover.start(); 
 	}	
 }
 
