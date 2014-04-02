@@ -25,6 +25,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.concurrent.TimeUnit;
 
 
 public class MainScreen implements KeyListener, ActionListener {//extends ImageHandler
@@ -148,6 +149,7 @@ public class MainScreen implements KeyListener, ActionListener {//extends ImageH
 	}
 	
 	
+	//http://forums.codeguru.com/showthread.php?39273-Display-Hide-Swing-Components used for reference for these show commands.
 	private void showKittenNoise(){ //Show Tutorial Image II
 		Component[] components = frame.getContentPane().getComponents();
 		components[0].setVisible(false);//noise overlay
@@ -210,7 +212,7 @@ public class MainScreen implements KeyListener, ActionListener {//extends ImageH
 		}
 		
 		// this shows the comparison conditions. The side the conditions are on is randomized.
-		else if (noiseOrComp == false) {
+		else if (noiseOrComp == false) { // this shows the comparison images after getting random ones.
 			System.out.print("showing comp.");
 			String A1 = imageObjects[0].pickRandomCompCond1();
 			String B1 = imageObjects[0].pickRandomCompCond2();
