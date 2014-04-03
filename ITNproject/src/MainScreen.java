@@ -71,6 +71,7 @@ public class MainScreen implements KeyListener, ActionListener {//extends ImageH
 	private void initialize() {
 		//this creates things that need to be created.
 		imageObjects = new ImageHandler[NumberOfFolders];
+//this creates the array of objects.
 		for (int createArray = 0; createArray < NumberOfFolders; createArray++){// this for loop initilizes all of the objects within the array.
 			imageObjects[createArray] = new ImageHandler();
 		}
@@ -198,7 +199,9 @@ public class MainScreen implements KeyListener, ActionListener {//extends ImageH
 		if (noiseOrComp == true){
 			System.out.print("showing noise");
 			try {
-				((JLabel) components[7]).setIcon( new ImageIcon(ImageIO.read( new File(imageObjects[0].pickRandomNoiseCond()) ) ) );
+//this sets one of the images to the noisecomp.
+				File noiseCompFile = new File(imageObjects[0].pickRandomNoiseCond());
+				((JLabel) components[7]).setIcon( new ImageIcon(ImageIO.read(noiseCompFile ) ) );
 			} 
 			catch (IOException e) {
 				e.printStackTrace();
