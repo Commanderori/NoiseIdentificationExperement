@@ -39,6 +39,7 @@ public class MainScreen implements KeyListener, ActionListener {//extends ImageH
 	private Boolean noiseOrComp = true; 
 	private ImageHandler[] imageObjects;
 	private String[] configReadIn;
+	private int noiseLevelUsed[];
 	private Timer tickover; //multiple use timer, I think.
 	private int tickoverLocationCount = 0;
 
@@ -78,6 +79,7 @@ public class MainScreen implements KeyListener, ActionListener {//extends ImageH
 		ChoiceArray = new char[1000];
 		timeTakenArray = new double [1000];
 		configReadIn = new String[1000];
+		noiseLevelUsed = new int[1000];
 		
 		frame = new JFrame();
 		frame.setBounds(100, 100, 600, 600);
@@ -289,7 +291,7 @@ public class MainScreen implements KeyListener, ActionListener {//extends ImageH
 				ChoiceArray[TrialCounter] = 'j';
 				System.out.print("ChoiceArray " + ChoiceArray[TrialCounter] + " And TimeTaken " + timeTakenArray[TrialCounter] + "\n");
 				tickover.stop();
-				tickoverLocationCount = 0;
+				tickoverLocationCount = 4;
 				startTrial();
 				TrialCounter+=1;
 			}
@@ -312,7 +314,7 @@ public class MainScreen implements KeyListener, ActionListener {//extends ImageH
 				ChoiceArray[TrialCounter] = 'f';
 				System.out.print("ChoiceArray " + ChoiceArray[TrialCounter] + " And TimeTaken " + timeTakenArray[TrialCounter] + "\n");
 				tickover.stop();
-				tickoverLocationCount = 0;
+				tickoverLocationCount = 4;
 				startTrial();
 				TrialCounter+=1;
 			}
@@ -378,6 +380,14 @@ public class MainScreen implements KeyListener, ActionListener {//extends ImageH
 			tickover = new Timer(5000, this);
 			tickover.setRepeats(false);
 			tickover.start(); 
+		}
+		else if (tickoverLocationCount == 4){
+			hideComparison();
+			delayBetweenImages = (int)(Math.random()*50)+250;
+			tickover = new Timer(delayBetweenImages, this);
+			tickover.setRepeats(false);
+			tickover.start();
+			tickoverLocationCount = 0;
 		}
 	}
 	
