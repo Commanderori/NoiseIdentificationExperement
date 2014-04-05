@@ -117,7 +117,7 @@ public class MainScreen implements KeyListener, ActionListener {//extends ImageH
 		LabelCompConditionTwo.setVisible(false);
 		frame.getContentPane().add(LabelCompConditionTwo);
 		
-		JLabel labelInstruction = new JLabel("Please place your hands on the keyboard as shown below.");
+		JLabel labelInstruction = new JLabel("Please place you hands on the keyboard as shown below.");
 		labelInstruction.setFont(new Font("Times New Roman", Font.BOLD, 14));
 		labelInstruction.setHorizontalAlignment(SwingConstants.CENTER);
 		labelInstruction.setBounds(10, 11, 564, 30);
@@ -129,7 +129,7 @@ public class MainScreen implements KeyListener, ActionListener {//extends ImageH
 		lableNextKey.setBounds(10, 521, 564, 30);
 		frame.getContentPane().add(lableNextKey);
 		
-		JLabel lblNoiseconditionimg = new JLabel("<html>You have reached a trial breakpoint.\r\nPress the Spacebar to Continue</html>");
+		JLabel lblNoiseconditionimg = new JLabel("NoiseConditionImg");
 		lblNoiseconditionimg.setIcon(new ImageIcon("C:\\Users\\Rob\\Desktop\\Sliding panel\\commonmask300high\\Pair 10\\MCRP003.JPG"));
 		lblNoiseconditionimg.setBounds(184, 135, 218, 300);
 		lblNoiseconditionimg.setVisible(false);
@@ -280,7 +280,7 @@ public class MainScreen implements KeyListener, ActionListener {//extends ImageH
 			
 			//the participant pressed the correct key in the tutorial, advance.
 			if (TutorialPosition == 2 ){
-				((JLabel) components[5]).setText("Very good. Now press the space bar to begin the experiment.");
+				((JLabel) components[5]).setText("Very good. Now press the space bar to begin the experement.");
 				hideAll();
 				TutorialPosition+= 1;
 			}
@@ -288,7 +288,7 @@ public class MainScreen implements KeyListener, ActionListener {//extends ImageH
 			//the participant pressed j in the experiment. Assuming that it is at the right
 			//section of the experiment, that is the comparison images having been displayed, then
 			//it selects the right hand image. correct/incorrect and current time are recorded.
-			else if ((TutorialPosition == 4) && (tickoverLocationCount > 2) && (takeBreak == false)){//the 4 means you aren't in the tutorial anymore.
+			else if ((TutorialPosition == 4) && (tickoverLocationCount > 2)){//the 4 means you aren't in the tutorial anymore.
 				systemTimeTaken = System.currentTimeMillis();
 				timeTakenArray[TrialCounter] = findTimeTaken(systemTimeTaken) / 1000;
 				ChoiceArray[TrialCounter] = 'j';
@@ -311,7 +311,7 @@ public class MainScreen implements KeyListener, ActionListener {//extends ImageH
 			//the participant pressed f in the experiment. Assuming that it is at the right
 			//section of the experiment, the comparison images having been displayed, then it selects
 			//the left hand image. correct/incorrect and current time are recorded.
-			else if ((TutorialPosition == 4) && (tickoverLocationCount > 2) && (takeBreak == false)){
+			else if ((TutorialPosition == 4) && (tickoverLocationCount > 2)){
 				systemTimeTaken = System.currentTimeMillis();
 				timeTakenArray[TrialCounter] = findTimeTaken(systemTimeTaken) / 1000;
 				ChoiceArray[TrialCounter] = 'f';
@@ -329,16 +329,14 @@ public class MainScreen implements KeyListener, ActionListener {//extends ImageH
 		return (double)(time - systemTimeValueToFindTimeTaken);
 	}
 	
-	//this function starts a new trial by instantly calling the timer function. It also checks to see
-	//if you have done some multiple of fifty trials, and if you have gives you a break.
-	//The break will last until you press the spacebar.
+	//this function starts a new trial by instantly calling the timer function.
 	private void startTrial(){
 		Component[] components = frame.getContentPane().getComponents();
 		if ((TrialCounter % 5 == 0) && (takeBreak == false)){
 			System.out.print("TrialCounter in startTrial = " +TrialCounter + "\n");
 			hideComparison();
-			components[7].setVisible(true);
-			((JLabel) components[7]).setIcon(null);
+			components[5].setVisible(true);
+			((JLabel) components[5]).setText("This is a break point. Press spacebar to continue.");
 			takeBreak = true;
 		}
 		else{

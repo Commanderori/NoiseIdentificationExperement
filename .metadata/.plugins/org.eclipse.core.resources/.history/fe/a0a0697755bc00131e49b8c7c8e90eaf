@@ -117,7 +117,7 @@ public class MainScreen implements KeyListener, ActionListener {//extends ImageH
 		LabelCompConditionTwo.setVisible(false);
 		frame.getContentPane().add(LabelCompConditionTwo);
 		
-		JLabel labelInstruction = new JLabel("Please place your hands on the keyboard as shown below.");
+		JLabel labelInstruction = new JLabel("Please place you hands on the keyboard as shown below.");
 		labelInstruction.setFont(new Font("Times New Roman", Font.BOLD, 14));
 		labelInstruction.setHorizontalAlignment(SwingConstants.CENTER);
 		labelInstruction.setBounds(10, 11, 564, 30);
@@ -280,7 +280,7 @@ public class MainScreen implements KeyListener, ActionListener {//extends ImageH
 			
 			//the participant pressed the correct key in the tutorial, advance.
 			if (TutorialPosition == 2 ){
-				((JLabel) components[5]).setText("Very good. Now press the space bar to begin the experiment.");
+				((JLabel) components[5]).setText("Very good. Now press the space bar to begin the experement.");
 				hideAll();
 				TutorialPosition+= 1;
 			}
