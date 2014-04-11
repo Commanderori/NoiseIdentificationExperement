@@ -94,9 +94,20 @@ public void packageChoiceAccuracy (boolean correct){
 	
 public void packageResults (){
 	
+	nextTrial();
 	int j = 1;
+	
 	for(i=0; i<whichTrial; i++){
-		out.write
+		out.write("Trial" + j);
+		if (choseCorrectlyOrIncorrectly[i] = true){
+			out.write("Correct\n");
+		}
+		else {
+			out.write("Incorrect\n");
+		}
+		out.write("Time Taken: "+ timeTakenToChooseImage[i] + "\n");
+		out.newLine();
+		j++;
 	}
 			
 
