@@ -1,4 +1,5 @@
-import java.io.File;
+import java.io.*;
+
 
 
 
@@ -7,7 +8,9 @@ public class ResultPackager {
 	double[] timeTakentoChooseImage;
 	boolean[] choseCorrectlyOrIncorrectly;
 	int[] levelOfNoise;
+	
 	int whichTrial;
+	BufferedWriter out;
 	
 	final File parentDirectory;
 	final String hash;
@@ -23,6 +26,8 @@ public ResultPackager (){
 	file = new File(parentDir, fileName);
 	file.createNewFile();
 	
+	out = new BufferedWriter(new FileWriter(fileName));
+	
 	trialNumber = new trialNumber[100];
 	timeTakentoChooseImage = new timeTaketoChooseImage[100];
 	choseCorrectlyOrIncorrectly = new choseCorrectlyOrIncorrectly[100];
@@ -32,9 +37,9 @@ public ResultPackager (){
 
 
 
-public void packageTrial(){
+public void nextTrial(){
 	
-	
+	whichTrial++;
 }
 
 /*
@@ -72,12 +77,29 @@ public void packageNoiseLevel(int noise){
 				break;
 	}
 	
-	//IO here when I get to it.
+	levelOfNoise[whichTrial] = noise;
 }
 
-public void 
+public void packageTimeTaken (double timer){
+	
+	timeTakenToChooseImage[whichTrial] = timer;
 
+}
 
+public void packageChoiceAccuracy (boolean correct){
+	
+	choseCorrectlyOrIncorrectly[whichTrial] = correct;
 
+}
+	
+public void packageResults (){
+	
+	int j = 1;
+	for(i=0; i<whichTrial; i++){
+		out.write
+	}
+			
+
+}
 
 }
