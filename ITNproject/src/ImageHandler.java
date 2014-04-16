@@ -55,3 +55,65 @@ public class ImageHandler {
 	}
 	 
 }
+
+/*
+Example of the configuration file.
+
+For this program, a configuration file is used in order to tell it where each of the different images it is supposed to use is located, and how they are associated
+with each other. This file is located inside the images folder itself, not in any of the subdirectories.
+
+For example, inside the image folder if you have a folder called "set1" that contains two test images and 4 comparison images for each of them.
+your configuration file would look like this:
+
+Test:
+set1/yourtest1.jpg
+set1/yourtest2.jpg
+Imageset1:
+set1/yourcomparison1.jpg
+set1/yourcomparison2.jpg
+set1/yourcomparison3.jpg
+set1/yourcomparison4.jpg
+Imageset2:
+set1/yourcomparison1.jpg
+set1/yourcomparison2.jpg
+set1/yourcomparison3.jpg
+set1/yourcomparison4.jpg
+end:
+
+If you have multiple foulders in your images directory, the config file would look like this:
+Test:
+set1/yourtest1.jpg
+set1/yourtest2.jpg
+Imageset1:
+set1/yourcomparison1.jpg
+set1/yourcomparison2.jpg
+set1/yourcomparison3.jpg
+set1/yourcomparison4.jpg
+Imageset2:
+set1/yourcomparison1.jpg
+set1/yourcomparison2.jpg
+set1/yourcomparison3.jpg
+set1/yourcomparison4.jpg
+end:
+
+Test:
+set2/yourtest1.jpg
+set2/yourtest2.jpg
+Imageset1:
+set2/yourcomparison1.jpg
+set2/yourcomparison2.jpg
+set2/yourcomparison3.jpg
+set2/yourcomparison4.jpg
+Imageset2:
+set2/yourcomparison1.jpg
+set2/yourcomparison2.jpg
+set2/yourcomparison3.jpg
+set2/yourcomparison4.jpg
+end:
+
+.
+.
+.
+
+and so on. Set2 is the name of the inside the images foulder, and the "yourcomparison/test.jpg" is the name of the image itself.
+*/
