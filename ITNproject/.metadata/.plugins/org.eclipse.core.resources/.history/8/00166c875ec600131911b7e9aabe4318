@@ -14,7 +14,6 @@ public class NoiseGenerator  {
 Image image;
 BufferedImage buffered;
 Random r;
-File outputfile;
 
 int seperator = 0;
 int width;
@@ -62,15 +61,13 @@ public File addNoiseToImage(File imageToBeChanged, int standardDeviation){
 	try {
 		
 		File outputfile = new File("sample" + seperator + ".jpg");
-		ImageIO.write(buffered, "jpg", outputfile);
-		if (seperator == 1)
+		ImageIO.write(buffered, "jpg", outputfile)
+		if (seperator = 1)
 			seperator = 0;
 		else 
 			seperator++;
 		
-	}catch (IOException e) {
-		e.printStackTrace();
-	}
+	}catch (IOException e) 
 	
 	return outputfile;
 
