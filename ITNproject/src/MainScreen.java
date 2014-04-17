@@ -39,11 +39,11 @@ public class MainScreen implements KeyListener, ActionListener {//extends ImageH
 	private Boolean noiseOrComp = true;
 	private Boolean takeBreak = false;
 	
-	private NoiseGenerator noiseGenerator; 
+	
 	
 	private ImageHandler[] imageObjects;
 	private String[] configReadIn;
-	private int noiseLevelUsed[];
+	
 	private Timer tickover; //multiple use timer, I think.
 	private int tickoverLocationCount = 0;
 
@@ -83,7 +83,7 @@ public class MainScreen implements KeyListener, ActionListener {//extends ImageH
 		ChoiceArray = new char[1000];
 		timeTakenArray = new double [1000];
 		configReadIn = new String[1000];
-		noiseLevelUsed = new int[1000];
+		
 		
 		frame = new JFrame();
 		frame.setBounds(100, 100, 600, 600);
@@ -208,7 +208,7 @@ public class MainScreen implements KeyListener, ActionListener {//extends ImageH
 //this sets one of the images to the noisecomp.
 				File noiseCompFile = new File(imageObjects[0].pickRandomNoiseCond());
 				
-				noiseCompFile = noiseGenerator.noise(noiseCompFile);
+				
 				
 				((JLabel) components[7]).setIcon( new ImageIcon(ImageIO.read(noiseCompFile ) ) );
 			} 

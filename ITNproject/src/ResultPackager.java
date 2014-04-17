@@ -1,8 +1,6 @@
 import java.io.*;
 
 
-
-
 public class ResultPackager {
 	
 	double[] timeTakentoChooseImage;
@@ -20,18 +18,29 @@ public class ResultPackager {
 public ResultPackager (){
 	
 	parentDirectory = new File("Result");
-	parentDirecty.mkdir(); 
+	parentDirectory.mkdir(); 
 	hash = "Result";
 	fileName = hash + ".txt";
-	file = new File(parentDir, fileName);
-	file.createNewFile();
+	file = new File(parentDirectory, fileName);
 	
-	out = new BufferedWriter(new FileWriter(fileName));
+	try {
+		file.createNewFile();
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
 	
-	trialNumber = new trialNumber[100];
-	timeTakentoChooseImage = new timeTaketoChooseImage[100];
-	choseCorrectlyOrIncorrectly = new choseCorrectlyOrIncorrectly[100];
-	levelOfNoise = new levelOfNoise[100]
+	try {
+		out = new BufferedWriter(new FileWriter(fileName));
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	
+	
+	timeTakentoChooseImage = new double[100];
+	choseCorrectlyOrIncorrectly = new boolean[100];
+	levelOfNoise = new int[100];
 	whichTrial = 0;
 }
 
@@ -50,7 +59,7 @@ public void nextTrial(){
 public void packageNoiseLevel(int noise){
 	boolean problem = false;
 	
-	switche(noise) {
+	switch(noise) {
 		
 		case 5: noise = 1;
 				break;
@@ -82,7 +91,7 @@ public void packageNoiseLevel(int noise){
 
 public void packageTimeTaken (double timer){
 	
-	timeTakenToChooseImage[whichTrial] = timer;
+	timeTakentoChooseImage[whichTrial] = timer;
 
 }
 
@@ -96,8 +105,10 @@ public void packageResults (){
 	
 	nextTrial();
 	int j = 1;
+	int i = 0;
 	
 	for(i=0; i<whichTrial; i++){
+		try {
 		out.write("Trial" + j);
 		if (choseCorrectlyOrIncorrectly[i] = true){
 			out.write("Correct\n");
@@ -105,9 +116,12 @@ public void packageResults (){
 		else {
 			out.write("Incorrect\n");
 		}
-		out.write("Time Taken: "+ timeTakenToChooseImage[i] + "\n");
+		out.write("Time Taken: "+ timeTakentoChooseImage[i] + "\n");
 		out.newLine();
 		j++;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 			
 

@@ -1,0 +1,62 @@
+
+import java.io.*;
+import java.util.*;
+import java.lang.Math;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+
+import javax.imageio.ImageIO;
+
+public class NoiseGenerator  {
+
+	
+
+Image image;
+BufferedImage buffered;
+Random r;
+
+int width;
+int height;
+int index;
+
+
+
+public BufferedImage addNoiseToImage(File imageToBeChanged, int standardDeviation){
+
+	try {
+		image = ImageIO.read(imageToBeChanged);
+	} catch (IOException e) {
+	// TODO Auto-generated catch block
+	e.printStackTrace();
+	}
+	buffered = (BufferedImage) image;
+	width = image.getWidth(null);
+	height = image.getHeight(null);
+	index = 0;
+
+	double noiseHolder;
+	int noiseValues[] = new int[100];
+	int delay = 0;
+	int check = 0;
+
+	do {
+		noiseHolder = r.nextGaussian() * standardDeviation;
+		check = (int) Math.round(noiseHolder);
+		if (check > 0){
+			noiseValues[delay] = (int) noiseHolder;
+			delay++;
+		}
+	} while (delay <= 100);
+	
+	int j;
+	int i;
+	for (j=0; j<height; j++){
+		for(i=0;i<width;i++){
+			index = (int) (Math.random() * (99 - 0)) + 0; 
+			buffered.setRGB(j,i,noiseValues[index]);
+		}
+	}
+	return buffered;
+
+}
+}
