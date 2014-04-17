@@ -32,19 +32,23 @@ public class MainScreen implements KeyListener, ActionListener {//extends ImageH
 	private JFrame frame;
 	private int TutorialPosition = 0;
 	private int TrialCounter = 1;
-	private int NumberOfFolders = 1;
+	private int NumberOfFolders = 100; // this line will need need to be edited if there are more than 100 folders.
 	private long systemTimeValueToFindTimeTaken;
 	private char[] ChoiceArray;
 	private double[] timeTakenArray;
 	private Boolean noiseOrComp = true;
 	private Boolean takeBreak = false;
+	private int numberOfFoldersInUse = -1; 
+	private int folderToUse;
+	private int configTracker = 0;
+	private Boolean firstRun = true;
 	
 	
 	
 	private ImageHandler[] imageObjects;
 	private String[] configReadIn;
 	
-	private Timer tickover; //multiple use timer, I think.
+	private Timer tickover; //multiple use timer
 	private int tickoverLocationCount = 0;
 
 	/**
@@ -203,13 +207,13 @@ public class MainScreen implements KeyListener, ActionListener {//extends ImageH
 		
 		//this if shows the noise and noise condition.
 		if (noiseOrComp == true){
-			System.out.print("showing noise");
+			//System.out.print("showing noise\n");
 			try {
 //this sets one of the images to the noisecomp.
-				File noiseCompFile = new File(imageObjects[0].pickRandomNoiseCond());
-				
-				
-				
+				folderToUse = (int)(Math.random()*numberOfFoldersInUse);
+				//System.out.print(folderToUse + " is foldertouse and numberOfFolders is " + numberOfFoldersInUse + "\n");
+				File noiseCompFile = new File(imageObjects[folderToUse].pickRandomNoiseCond());
+				//System.out.print(noiseCompFile + "is the file being read\n");
 				((JLabel) components[7]).setIcon( new ImageIcon(ImageIO.read(noiseCompFile ) ) );
 			} 
 			catch (IOException e) {
@@ -222,17 +226,19 @@ public class MainScreen implements KeyListener, ActionListener {//extends ImageH
 		}
 		
 		// this shows the comparison conditions. The side the conditions are on is randomized.
-		else if (noiseOrComp == false) {
-			System.out.print("showing comp.");
-			String A1 = imageObjects[0].pickRandomCompCond1();
-			String B1 = imageObjects[0].pickRandomCompCond2();
+		else if (noiseOrComp == false) { //comp[8] is left
+			//System.out.print("showing comp.\n");
+			String A1 = imageObjects[folderToUse].pickRandomCompCond1();
+			String B1 = imageObjects[folderToUse].pickRandomCompCond2();
 			System.out.print("Random1 is " +A1 + " and Random 2 is " +B1 + "\n");
 			if ((int)(Math.random()*2)== 1){
 				((JLabel) components[8]).setIcon( new ImageIcon(A1) );
+				imageObjects[folderToUse].isJ = false;
 				((JLabel) components[9]).setIcon( new ImageIcon(B1) );
 			}
 			else {
 				((JLabel) components[8]).setIcon( new ImageIcon(B1) );
+				imageObjects[folderToUse].isJ = true;
 				((JLabel) components[9]).setIcon( new ImageIcon(A1) );
 			}
 			((JLabel) components[7]).setVisible(false);
@@ -297,7 +303,12 @@ public class MainScreen implements KeyListener, ActionListener {//extends ImageH
 			else if ((TutorialPosition == 4) && (tickoverLocationCount > 2) && (takeBreak == false)){//the 4 means you aren't in the tutorial anymore.
 				systemTimeTaken = System.currentTimeMillis();
 				timeTakenArray[TrialCounter] = findTimeTaken(systemTimeTaken) / 1000;
-				ChoiceArray[TrialCounter] = 'j';
+				if (imageObjects[folderToUse].isJ == true){
+					ChoiceArray[TrialCounter] = 'C';
+				}
+				else{
+					ChoiceArray[TrialCounter] = 'I';
+				}
 				System.out.print("ChoiceArray " + ChoiceArray[TrialCounter] + " And TimeTaken " + timeTakenArray[TrialCounter] + "\n");
 				tickover.stop();
 				tickoverLocationCount = 4;
@@ -320,7 +331,12 @@ public class MainScreen implements KeyListener, ActionListener {//extends ImageH
 			else if ((TutorialPosition == 4) && (tickoverLocationCount > 2) && (takeBreak == false)){
 				systemTimeTaken = System.currentTimeMillis();
 				timeTakenArray[TrialCounter] = findTimeTaken(systemTimeTaken) / 1000;
-				ChoiceArray[TrialCounter] = 'f';
+				if (imageObjects[folderToUse].isJ == true){
+					ChoiceArray[TrialCounter] = 'I';
+				}
+				else{
+					ChoiceArray[TrialCounter] = 'C';
+				}
 				System.out.print("ChoiceArray " + ChoiceArray[TrialCounter] + " And TimeTaken " + timeTakenArray[TrialCounter] + "\n");
 				tickover.stop();
 				tickoverLocationCount = 4;
@@ -340,8 +356,8 @@ public class MainScreen implements KeyListener, ActionListener {//extends ImageH
 	//The break will last until you press the spacebar.
 	private void startTrial(){
 		Component[] components = frame.getContentPane().getComponents();
-		if ((TrialCounter % 5 == 0) && (takeBreak == false)){
-			System.out.print("TrialCounter in startTrial = " +TrialCounter + "\n");
+		if ((TrialCounter % 50 == 0) && (takeBreak == false)){
+			//System.out.print("TrialCounter in startTrial = " +TrialCounter + "\n");
 			hideComparison();
 			components[7].setVisible(true);
 			((JLabel) components[7]).setIcon(null);
@@ -365,7 +381,7 @@ public class MainScreen implements KeyListener, ActionListener {//extends ImageH
 		//This if shows the comparison image and the noise overlay on top of it, then sets a timer so
 		//it is only displayed for one second.
 		if (tickoverLocationCount == 0){
-			System.out.print("TrialCounter in timer = " +TrialCounter + "\n");
+			//System.out.print("TrialCounter in timer = " +TrialCounter + "\n");
 			swapComparisonForNoise();
 			tickover = new Timer(1000, this);
 			tickover.setRepeats(false);
@@ -421,43 +437,54 @@ public class MainScreen implements KeyListener, ActionListener {//extends ImageH
 	@Override
 	public void keyTyped(KeyEvent inputKey){/*functiongoeshere*/}
 	
-	//these two functions will go away once cody has implemented his part.
-	private void loadFileToArr(){ // you MUST add error catching here. this should be in imagehandler
-		int configTracker = 0;
-		String path = "images/config.txt";
-		FileInputStream configFile = null;
-		try {
-			configFile = new FileInputStream(path);
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		BufferedReader in = new BufferedReader(new InputStreamReader(configFile));
-		
-		try {
-			while (in.ready()) { 
-				configReadIn[configTracker] = in.readLine(); 
-				//System.out.println(configReadIn[configTracker]);
-				configTracker++;
+	private void loadFileToArr(){
+		if (firstRun == true){
+			//System.out.print(configTracker);
+			String path = "images/config.txt";
+			FileInputStream configFile = null;
+			try {
+				configFile = new FileInputStream(path);
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			BufferedReader in = new BufferedReader(new InputStreamReader(configFile));
+		
+			try {
+				while (in.ready()) { 
+					configReadIn[configTracker] = in.readLine(); 
+					//System.out.println(configReadIn[configTracker]);
+					configTracker++;
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			firstRun = false;
 		}
 		fillArrays(configTracker);
 	}
 	
 	private void fillArrays(int arrToFill){ // this should also be in imagehandler
-		String input;
+		String input = "null";
 		int typeOfInput = 0;
 		int CRIcount = 0;//config read in count
 		int arrCount = 0;
-		imageObjects[0].setNONC(2);
-		imageObjects[0].setNOCC(3);
+		numberOfFoldersInUse = -1;
+		typeOfInput = 0;
+		CRIcount = 0;
+		arrCount = 0;
+		
+		
 		input = configReadIn[CRIcount];
 		while (!(input.startsWith("End:"))){
+			//System.out.print(input + "\n");
 			if(input.startsWith("Test")){
-				System.out.println(input + " inside");
+				if(typeOfInput == 3){
+					imageObjects[numberOfFoldersInUse].setNOCC2(arrCount);
+				}
+				numberOfFoldersInUse += 1;
+				//System.out.println(input + " inside");
 				typeOfInput = 1;
 				arrCount=0;
 			}
@@ -466,23 +493,29 @@ public class MainScreen implements KeyListener, ActionListener {//extends ImageH
 				arrCount=0;
 			}
 			else if(input.startsWith("ImageSet2")){
+				imageObjects[numberOfFoldersInUse].setNOCC1(arrCount);
 				typeOfInput = 3;
 				arrCount=0;
 			}			
-			else if (typeOfInput == 1){
-				imageObjects[0].insertNoiseCond(arrCount, configReadIn[CRIcount]);
+			else if (typeOfInput == 1 &&input.startsWith("image")){
+				
+				imageObjects[numberOfFoldersInUse].insertNoiseCond(arrCount, configReadIn[CRIcount]);
 				arrCount++;
 			}
-			else if (typeOfInput == 2){
-				imageObjects[0].insertCompCond1(arrCount, configReadIn[CRIcount]);
+			else if (typeOfInput == 2 && input.startsWith("image")){
+				//System.out.print ("Arrcount is " +arrCount+"\n");
+				imageObjects[numberOfFoldersInUse].insertCompCond1(arrCount, configReadIn[CRIcount]);
 				arrCount++;
 			}			
-			else if (typeOfInput == 3){
-				imageObjects[0].insertCompCond2(arrCount, configReadIn[CRIcount]);
+			else if (typeOfInput == 3 && input.startsWith("image")){
+				//System.out.print ("Arrcount is " +arrCount+"\n");
+				imageObjects[numberOfFoldersInUse].insertCompCond2(arrCount, configReadIn[CRIcount]);
 				arrCount++;
 			}
 			CRIcount ++;
 			input = configReadIn[CRIcount];
 		}
+		imageObjects[numberOfFoldersInUse].setNOCC2(arrCount);
+		numberOfFoldersInUse += 1;
 	}
 }

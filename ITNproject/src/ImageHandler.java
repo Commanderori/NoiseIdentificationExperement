@@ -1,31 +1,36 @@
 
 public class ImageHandler {
-	private int numberOfCompConditions=0;
-	private int numberOfNoiseConditions=0;
+	private int numberOfCompConditions1;
+	private int numberOfCompConditions2;
+	private int numberOfNoiseConditions;
 	private String[] noiseConditionArray;
 	private String[] comparisonConditionArray1;
 	private String[] comparisonConditionArray2;
-	private String foulderName;
+	public Boolean isA1 = true;
+	public Boolean isJ = true;
 	
 	public ImageHandler(){
 		Setup();
 	}
 	
 	private void Setup(){
-		numberOfCompConditions = 0;
-		numberOfNoiseConditions = 0;
+		numberOfCompConditions1 = 20;
+		numberOfCompConditions2 = 20;
+		numberOfNoiseConditions = 2;
 		noiseConditionArray = new String[10];
 		comparisonConditionArray1 = new String[10];
 		comparisonConditionArray2 = new String[10];
-		foulderName = "blank";
 	}
 	
-	public void setNONC(int NONC){//sets the number of noise conditions. (should always be 2)
+	public void setNONC(int NONC){//sets the number of noise conditions. (should always be 2, function is for later expansion)
 		numberOfNoiseConditions = NONC;
 	}
 	
-	public void setNOCC(int NOCC){//the number of comparison conditions
-		numberOfCompConditions = NOCC;
+	public void setNOCC1(int NOCC){//the number of comparison conditions
+		numberOfCompConditions1 = NOCC;
+	}
+	public void setNOCC2(int NOCC){//the number of comparison conditions
+		numberOfCompConditions2 = NOCC;
 	}
 	
 	public void insertNoiseCond(int location, String input){
@@ -43,15 +48,21 @@ public class ImageHandler {
 	public String pickRandomNoiseCond(){
 		int WIP = (int)(Math.random()*numberOfNoiseConditions);
 		System.out.print("Showing Image "+WIP + "\n");
+		if (WIP == 0){
+			isA1 = true;
+		}
+		else {
+			isA1 = false;
+		}
 		return noiseConditionArray[WIP];
 	}
 	
 	public String pickRandomCompCond1(){
-		return comparisonConditionArray1[(int)(Math.random()*numberOfCompConditions)];
+		return comparisonConditionArray1[(int)(Math.random()*numberOfCompConditions1)];
 	}
 	
 	public String pickRandomCompCond2(){
-		return comparisonConditionArray2[(int)(Math.random()*numberOfCompConditions)];
+		return comparisonConditionArray2[(int)(Math.random()*numberOfCompConditions2)];
 	}
 	 
 }
@@ -94,7 +105,6 @@ set1/yourcomparison1.jpg
 set1/yourcomparison2.jpg
 set1/yourcomparison3.jpg
 set1/yourcomparison4.jpg
-end:
 
 Test:
 set2/yourtest1.jpg

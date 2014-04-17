@@ -1,0 +1,12 @@
+Test:
+images/letters/LetterA.jpg
+images/letters/LetterB.jpg
+ImageSet1:
+images/letters/LetterC.jpg
+images/letters/LetterD.jpg
+images/letters/LetterF.jpg
+ImageSet2:
+images/letters/LetterE.jpg
+images/letters/LetterI.jpg
+images/letters/LetterO.jpg
+End:
