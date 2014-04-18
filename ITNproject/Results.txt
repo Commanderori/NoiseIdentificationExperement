@@ -1,0 +1,6 @@
+Trial: 1  Incorrect Noise Level:0  Time Taken:0.0  
+Trial: 2  Correct   Noise Level:0  Time Taken:594.0  
+Trial: 3  Incorrect Noise Level:0  Time Taken:0.313  
+Trial: 4  Correct   Noise Level:0  Time Taken:345.0  
+Trial: 5  Incorrect Noise Level:0  Time Taken:0.407  
+Trial: 6  Incorrect Noise Level:0  Time Taken:0.0  

@@ -6,36 +6,15 @@ public class ResultPackager {
 	double[] timeTakentoChooseImage;
 	boolean[] choseCorrectlyOrIncorrectly;
 	int[] levelOfNoise;
-	
 	int whichTrial = -1;
-	BufferedWriter out;
+	FileWriter fw;
 	
-	final File parentDirectory;
-	final String hash;
-	final String fileName;
-	final File file;
+	
 	
 public ResultPackager (){
 	
-	parentDirectory = new File("Results");
-	parentDirectory.mkdir(); 
-	hash = "Results";
-	fileName = hash + ".txt";
-	file = new File(parentDirectory, fileName);
 	
-	try {
-		file.createNewFile();
-	} catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
 	
-	try {
-		out = new BufferedWriter(new FileWriter(fileName));
-	} catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
 	
 	
 	timeTakentoChooseImage = new double[100];
@@ -101,31 +80,47 @@ public void packageTimeTaken (double timer){
 public void packageChoiceAccuracy (boolean correct){
 	
 	choseCorrectlyOrIncorrectly[whichTrial] = correct;
-	
+	if (choseCorrectlyOrIncorrectly[whichTrial] == true)
+		System.out.println("Successful!  They were: correct.");
+	else 
+		System.out.println("Successful!  They were: incorrect.");
 }
 	
-public void packageResults (){
+public void packageResults (){ 
 	
 	nextTrial();
 	int j = 1;
 	int i = 0;
 	
-	for(i=0; i<whichTrial; i++){
-		try {
-		out.write("Trial:" + j);
-		if (choseCorrectlyOrIncorrectly[i] = true){
-			out.write("Correctly Chosen\n");
-		}
-		else {
-			out.write("Incorrect Chosen\n");
-		}
-		out.write("Time Taken: "+ timeTakentoChooseImage[i] + "\n");
-		out.newLine();
-		j++;
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	FileWriter fw = null;
+	try {
+		fw = new FileWriter("Results.txt", false);
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
 	}
+	
+	PrintWriter pw = new PrintWriter(fw, true);
+	
+	
+	
+	
+	for (i=0; i<whichTrial; i++){
+		
+		pw.print("Trial: " + j+"  ");
+		
+		if (choseCorrectlyOrIncorrectly[i] == true)
+			pw.print("Correct  ");
+		else
+			pw.print("Incorrect");
+		
+		pw.print(" Noise Level:" + levelOfNoise[i] +"  ");
+		pw.println("Time Taken:"+ timeTakentoChooseImage[i]+"  ");
+		
+		j++;
+	}
+	
+	pw.close();
 			
 
 }

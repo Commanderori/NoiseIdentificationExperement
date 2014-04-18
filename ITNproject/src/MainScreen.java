@@ -96,16 +96,16 @@ public class MainScreen implements KeyListener, ActionListener {//extends ImageH
 		
 		STDDArray = new int[10];
 		
-		STDDArray[0] = 5;
-		STDDArray[1] = 15;
-		STDDArray[2] = 25;
-		STDDArray[3] = 35;
-		STDDArray[4] = 45;
-		STDDArray[5] = 65;
-		STDDArray[6] = 80;
-		STDDArray[7] = 90;
-		STDDArray[8] = 105;
-		STDDArray[9] = 115;
+		STDDArray[0] = 25;
+		STDDArray[1] = 55;
+		STDDArray[2] = 75;
+		STDDArray[3] = 125;
+		STDDArray[4] = 200;
+		STDDArray[5] = 300;
+		STDDArray[6] = 400;
+		STDDArray[7] = 550;
+		STDDArray[8] = 750;
+		STDDArray[9] = 950;
 		
 		
 		
@@ -336,7 +336,7 @@ public class MainScreen implements KeyListener, ActionListener {//extends ImageH
 			//it selects the right hand image. correct/incorrect and current time are recorded.
 			else if ((TutorialPosition == 4) && (tickoverLocationCount > 2) && (takeBreak == false)){//the 4 means you aren't in the tutorial anymore.
 				systemTimeTaken = System.currentTimeMillis();
-				timeTakenArray[TrialCounter] = findTimeTaken(systemTimeTaken) / 1000;
+				ResPack.packageTimeTaken(findTimeTaken(systemTimeTaken) / 1000);
 				if (imageObjects[folderToUse].isJ == true){
 					ChoiceArray[TrialCounter] = 'C';
 					ResPack.packageChoiceAccuracy(true);

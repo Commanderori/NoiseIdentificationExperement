@@ -20,6 +20,8 @@ int seperator = 0;
 int width;
 int height;
 int index;
+int threshold[];
+
 
 
 
@@ -33,6 +35,7 @@ public Image addNoiseToImage(File imageToBeChanged, int standardDeviation){
 	e.printStackTrace();
 	}
 	
+	
 	buffered = (BufferedImage) image;
 	width = image.getWidth(null);
 	height = image.getHeight(null);
@@ -42,43 +45,36 @@ public Image addNoiseToImage(File imageToBeChanged, int standardDeviation){
 	double noiseHolder;
 	noiseValues = new int[100];
 	int delay = 0;
-	int check = 0;
+	
 
 	do {
-		noiseHolder = (double) r.nextGaussian() * standardDeviation;
-		check = (int) Math.round(noiseHolder);
-		if (check > 0){
-			noiseValues[delay] = (int) noiseHolder;
-			delay++;
-		}
+		noiseHolder = (double) r.nextGaussian() * standardDeviation + Math.random() * 12;
+		
+		noiseValues[delay] = (int) noiseHolder;
+		delay++;
+		
 	} while (delay < 100);
 	
 	int j;
 	int i;
+	int z;
+	int l=0;
+	
 	for (j=0; j<height; j++){
+		z = ((int) Math.floor((Math.random()*10)+1));
+		System.out.print("Z is: " + z+"\n");
 		for(i=0;i<width;i++){
-			//System.out.println("J is: " +j+"\nI is: "+i);
-			index = (int) (Math.random() * 99);
-			
-			//System.out.print("NoiseValues is " + noiseValues[index]+" ");
-			buffered.setRGB(i,j,noiseValues[index]);
+			if (l == z)	{
+				index = (int) (Math.floor(Math.random() * 99));
+				buffered.setRGB(i,j,noiseValues[index]);
+				l = 0;
+			}
+			l++;
 		}
+		l=0;
 	}
 	
-	/*
-	try {
-		
-		
-		File outputfile = new File("sample" + seperator + ".jpg");
-		ImageIO.write(buffered, "jpg", outputfile);
-		if (seperator == 1)
-			seperator = 0;
-		else 
-			seperator++;
-		
-	}catch (IOException e) {
-		e.printStackTrace();
-	}*/
+	
 	
 	return buffered;
 
