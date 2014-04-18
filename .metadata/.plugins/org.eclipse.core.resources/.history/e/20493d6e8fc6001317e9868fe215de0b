@@ -44,8 +44,7 @@ public class MainScreen implements KeyListener, ActionListener {//extends ImageH
 	private Boolean firstRun = true;
 	private ResultPackager ResPack;
 	private NoiseGenerator NoiseGen;
-	private int numberOfTrials;
-	private int currentTrial = 0;
+	
 	
 	
 	private ImageHandler[] imageObjects;
@@ -206,9 +205,6 @@ public class MainScreen implements KeyListener, ActionListener {//extends ImageH
 		components[3].setVisible(false);
 		components[4].setVisible(false);
 		components[6].setVisible(false);
-		components[7].setVisible(false);
-		components[8].setVisible(false);
-		components[9].setVisible(false);
 	}
 	
 	private void hideNoise(){
@@ -221,13 +217,6 @@ public class MainScreen implements KeyListener, ActionListener {//extends ImageH
 		Component[] components = frame.getContentPane().getComponents();
 		components[8].setVisible(false);
 		components[9].setVisible(false);
-	}
-	
-	private void showEndOfTrial(){
-		ResPack.packageResults();
-		Component[] components = frame.getContentPane().getComponents();
-		components[6].setVisible(true);
-		((JLabel) components[6]).setText("You have completed the Experiment. Please send the results file in.");
 	}
 	
 	//this function is used by the program to swap between the noise condition and the comparison
@@ -339,11 +328,9 @@ public class MainScreen implements KeyListener, ActionListener {//extends ImageH
 				timeTakenArray[TrialCounter] = findTimeTaken(systemTimeTaken) / 1000;
 				if (imageObjects[folderToUse].isJ == true){
 					ChoiceArray[TrialCounter] = 'C';
-					ResPack.packageChoiceAccuracy(true);
 				}
 				else{
 					ChoiceArray[TrialCounter] = 'I';
-					ResPack.packageChoiceAccuracy(false);
 				}
 				System.out.print("ChoiceArray " + ChoiceArray[TrialCounter] + " And TimeTaken " + timeTakenArray[TrialCounter] + "\n");
 				tickover.stop();
@@ -369,11 +356,9 @@ public class MainScreen implements KeyListener, ActionListener {//extends ImageH
 				timeTakenArray[TrialCounter] = findTimeTaken(systemTimeTaken) / 1000;
 				if (imageObjects[folderToUse].isJ == true){
 					ChoiceArray[TrialCounter] = 'I';
-					ResPack.packageChoiceAccuracy(false);
 				}
 				else{
 					ChoiceArray[TrialCounter] = 'C';
-					ResPack.packageChoiceAccuracy(true);
 				}
 				System.out.print("ChoiceArray " + ChoiceArray[TrialCounter] + " And TimeTaken " + timeTakenArray[TrialCounter] + "\n");
 				tickover.stop();
@@ -386,9 +371,7 @@ public class MainScreen implements KeyListener, ActionListener {//extends ImageH
 
 	// helper function for the above, converts the long system time to a double indicating how long you took
 	private double findTimeTaken (long time){
-		ResPack.packageTimeTaken((time - systemTimeValueToFindTimeTaken));
 		return (double)(time - systemTimeValueToFindTimeTaken);
-		
 	}
 	
 	//this function starts a new trial by instantly calling the timer function. It also checks to see
@@ -420,14 +403,8 @@ public class MainScreen implements KeyListener, ActionListener {//extends ImageH
 		
 		//This if shows the comparison image and the noise overlay on top of it, then sets a timer so
 		//it is only displayed for one second.
-		if (numberOfTrials == currentTrial){
-			hideAll();
-			tickoverLocationCount = -1;
-		}
-		
 		if (tickoverLocationCount == 0){
 			ResPack.nextTrial();
-			currentTrial++;
 			//System.out.print("TrialCounter in timer = " +TrialCounter + "\n");
 			swapComparisonForNoise();
 			tickover = new Timer(1000, this);
@@ -474,9 +451,6 @@ public class MainScreen implements KeyListener, ActionListener {//extends ImageH
 			tickover.setRepeats(false);
 			tickover.start();
 			tickoverLocationCount = 0;
-		}
-		else if (tickoverLocationCount == -1){
-			showEndOfTrial();
 		}
 	}
 	
@@ -546,14 +520,7 @@ public class MainScreen implements KeyListener, ActionListener {//extends ImageH
 				imageObjects[numberOfFoldersInUse].setNOCC1(arrCount);
 				typeOfInput = 3;
 				arrCount=0;
-			}
-			else if (input.startsWith("Trials")){
-				CRIcount++;
-				input = configReadIn[CRIcount];
-				numberOfTrials = Integer.parseInt(input);
-				System.out.print(numberOfTrials);
-				
-			}
+			}			
 			else if (typeOfInput == 1 &&input.startsWith("image")){
 				
 				imageObjects[numberOfFoldersInUse].insertNoiseCond(arrCount, configReadIn[CRIcount]);

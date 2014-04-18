@@ -223,13 +223,6 @@ public class MainScreen implements KeyListener, ActionListener {//extends ImageH
 		components[9].setVisible(false);
 	}
 	
-	private void showEndOfTrial(){
-		ResPack.packageResults();
-		Component[] components = frame.getContentPane().getComponents();
-		components[6].setVisible(true);
-		((JLabel) components[6]).setText("You have completed the Experiment. Please send the results file in.");
-	}
-	
 	//this function is used by the program to swap between the noise condition and the comparison
 	//conditions. It picks a random image/s to display, and then shows it/them.
 	private void swapComparisonForNoise(){
@@ -420,14 +413,8 @@ public class MainScreen implements KeyListener, ActionListener {//extends ImageH
 		
 		//This if shows the comparison image and the noise overlay on top of it, then sets a timer so
 		//it is only displayed for one second.
-		if (numberOfTrials == currentTrial){
-			hideAll();
-			tickoverLocationCount = -1;
-		}
-		
 		if (tickoverLocationCount == 0){
 			ResPack.nextTrial();
-			currentTrial++;
 			//System.out.print("TrialCounter in timer = " +TrialCounter + "\n");
 			swapComparisonForNoise();
 			tickover = new Timer(1000, this);
@@ -474,9 +461,6 @@ public class MainScreen implements KeyListener, ActionListener {//extends ImageH
 			tickover.setRepeats(false);
 			tickover.start();
 			tickoverLocationCount = 0;
-		}
-		else if (tickoverLocationCount == -1){
-			showEndOfTrial();
 		}
 	}
 	

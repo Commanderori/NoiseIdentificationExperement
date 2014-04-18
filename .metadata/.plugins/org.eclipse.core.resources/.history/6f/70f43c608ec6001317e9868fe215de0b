@@ -60,7 +60,7 @@ public Image addNoiseToImage(File imageToBeChanged, int standardDeviation){
 			//System.out.println("J is: " +j+"\nI is: "+i);
 			index = (int) (Math.random() * 99);
 			
-			//System.out.print("NoiseValues is " + noiseValues[index]+" ");
+			System.out.print(noiseValues[index]+" ");
 			buffered.setRGB(i,j,noiseValues[index]);
 		}
 	}

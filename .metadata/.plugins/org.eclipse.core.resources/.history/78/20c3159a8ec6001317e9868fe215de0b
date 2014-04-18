@@ -45,7 +45,7 @@ public Image addNoiseToImage(File imageToBeChanged, int standardDeviation){
 	int check = 0;
 
 	do {
-		noiseHolder = (double) r.nextGaussian() * standardDeviation;
+		noiseHolder = (double) r.nextGaussian() * standardDeviation+100000;
 		check = (int) Math.round(noiseHolder);
 		if (check > 0){
 			noiseValues[delay] = (int) noiseHolder;
@@ -60,7 +60,7 @@ public Image addNoiseToImage(File imageToBeChanged, int standardDeviation){
 			//System.out.println("J is: " +j+"\nI is: "+i);
 			index = (int) (Math.random() * 99);
 			
-			//System.out.print("NoiseValues is " + noiseValues[index]+" ");
+			System.out.print("NoiseValues is " + noiseValues[index]+" ");
 			buffered.setRGB(i,j,noiseValues[index]);
 		}
 	}

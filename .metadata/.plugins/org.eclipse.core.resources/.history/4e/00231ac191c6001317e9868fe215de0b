@@ -227,7 +227,7 @@ public class MainScreen implements KeyListener, ActionListener {//extends ImageH
 		ResPack.packageResults();
 		Component[] components = frame.getContentPane().getComponents();
 		components[6].setVisible(true);
-		((JLabel) components[6]).setText("You have completed the Experiment. Please send the results file in.");
+		((JLabel) components[6]).setText("You have completed the Experiment. Please send the results file.");
 	}
 	
 	//this function is used by the program to swap between the noise condition and the comparison

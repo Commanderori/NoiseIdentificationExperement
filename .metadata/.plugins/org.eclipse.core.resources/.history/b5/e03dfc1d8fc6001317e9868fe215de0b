@@ -7,7 +7,7 @@ public class ResultPackager {
 	boolean[] choseCorrectlyOrIncorrectly;
 	int[] levelOfNoise;
 	
-	int whichTrial = -1;
+	int whichTrial;
 	BufferedWriter out;
 	
 	final File parentDirectory;
