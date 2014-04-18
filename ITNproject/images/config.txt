@@ -1,46 +1,79 @@
 Trials:
 5
 
+
 Test:
+
 images/Fingerprints/Pair1/AOLI004Test.jpg
+
 images/Fingerprints/Pair1/AORI001Test.jpg
 
+
 ImageSet1:
+
 images/Fingerprints/Pair1/AOLI002.jpg
+
 images/Fingerprints/Pair1/AOLI003.jpg
+
 images/Fingerprints/Pair1/AOLI005.jpg
 
+
 ImageSet2:
-images/Fingerprints/Pair1/AORI002.jpg
+
+images/Fingerprints/Pair1/AORI002.JPG
+
 images/Fingerprints/Pair1/AORI004.jpg
+
 images/Fingerprints/Pair1/AORI005.jpg
 
+
 Test:
+
 images/Fingerprints/Pair2/AOLI002Test.jpg
+
 images/Fingerprints/Pair2/AORI002Test.jpg
 
+
 ImageSet1:
+
 images/Fingerprints/Pair2/AOLI001.jpg
+
 images/Fingerprints/Pair2/AOLI003.jpg
+
 images/Fingerprints/Pair2/AOLI004.jpg
 
+
 ImageSet2:
-images/Fingerprints/Pair2/AORI002.jpg
+
+images/Fingerprints/Pair2/AORI001.jpg
+
 images/Fingerprints/Pair2/AORI003.jpg
+
 images/Fingerprints/Pair2/AORI004.jpg
 
 Test:
+
 images/Fingerprints/Pair4/AOLR004Test.jpg
+
 images/Fingerprints/Pair4/AORR001Test.jpg
 
+
 ImageSet1:
+
 images/Fingerprints/Pair4/AOLR002.jpg
+
 images/Fingerprints/Pair4/AOLR003.jpg
+
 images/Fingerprints/Pair4/AOLR005.jpg
 
+
 ImageSet2:
+
 images/Fingerprints/Pair4/AORR003.jpg
+
 images/Fingerprints/Pair4/AORR004.jpg
+
 images/Fingerprints/Pair4/AORR005.jpg
+
 
 End:

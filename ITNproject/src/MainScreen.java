@@ -23,8 +23,10 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 
 
 public class MainScreen implements KeyListener, ActionListener {//extends ImageHandler
@@ -82,9 +84,8 @@ public class MainScreen implements KeyListener, ActionListener {//extends ImageH
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		//this creates things that need to be created.
-		imageObjects = new ImageHandler[NumberOfFolders];
-//this creates the array of objects.
+		imageObjects = new ImageHandler[NumberOfFolders];		
+		//this creates the array of objects required to hold the file system.
 		for (int createArray = 0; createArray < NumberOfFolders; createArray++){// this for loop initilizes all of the objects within the array.
 			imageObjects[createArray] = new ImageHandler();
 		}
@@ -94,7 +95,7 @@ public class MainScreen implements KeyListener, ActionListener {//extends ImageH
 		ResPack = new ResultPackager();
 		NoiseGen = new NoiseGenerator();
 		
-		STDDArray = new int[10];
+		STDDArray = new int[10]; // array of values that can be passed to the gausian noise generator.
 		
 		STDDArray[0] = 25;
 		STDDArray[1] = 55;
@@ -198,7 +199,7 @@ public class MainScreen implements KeyListener, ActionListener {//extends ImageH
 		components[4].setVisible(true);
 	}
 	
-	private void hideAll(){ //hide all of the tutorial images.
+	private void hideAll(){ //hide all of the content of the frame.
 		Component[] components = frame.getContentPane().getComponents();
 		components[0].setVisible(false);
 		components[1].setVisible(false);
@@ -211,10 +212,9 @@ public class MainScreen implements KeyListener, ActionListener {//extends ImageH
 		components[9].setVisible(false);
 	}
 	
-	private void hideNoise(){
+	private void hideNoise(){ 
 		Component[] components = frame.getContentPane().getComponents();
-		components[7].setVisible(false);
-		// todo add the noise overlay to this. 
+		components[7].setVisible(false); 
 	}
 	
 	private void hideComparison(){
@@ -223,7 +223,7 @@ public class MainScreen implements KeyListener, ActionListener {//extends ImageH
 		components[9].setVisible(false);
 	}
 	
-	private void showEndOfTrial(){
+	private void showEndOfTrial(){ // this is called once all of the trials have been completed. It outputs the results file.
 		ResPack.packageResults();
 		Component[] components = frame.getContentPane().getComponents();
 		components[6].setVisible(true);
@@ -236,23 +236,13 @@ public class MainScreen implements KeyListener, ActionListener {//extends ImageH
 		Component[] components = frame.getContentPane().getComponents();
 		
 		//this if shows the noise and noise condition.
-		if (noiseOrComp == true){
-			//System.out.print("showing noise\n");
-
-//this sets one of the images to the noisecomp.
-				folderToUse = (int)(Math.random()*numberOfFoldersInUse);
-				File noiseCompFile = new File(imageObjects[folderToUse].pickRandomNoiseCond());
-				int STDDChoice = (int)(Math.random()*9);
-				ResPack.packageNoiseLevel(STDDArray[STDDChoice]);
-				((JLabel) components[7]).setIcon( new ImageIcon(NoiseGen.addNoiseToImage(noiseCompFile, STDDArray[STDDChoice])));
-				
-				
-				
-				//System.out.print(folderToUse + " is foldertouse and numberOfFolders is " + numberOfFoldersInUse + "\n");
-				
-				//System.out.print(noiseCompFile + "is the file being read\n");
-				//((JLabel) components[7]).setIcon( new ImageIcon(ImageIO.read(noiseCompFile ) ) );
-
+		if (noiseOrComp == true && (numberOfTrials != currentTrial-1)){
+			//this sets one of the images to the noisecomp.
+			folderToUse = (int)(Math.random()*numberOfFoldersInUse);
+			File noiseCompFile = new File(imageObjects[folderToUse].pickRandomNoiseCond());
+			int STDDChoice = (int)(Math.random()*9);
+			ResPack.packageNoiseLevel(STDDArray[STDDChoice]);
+			((JLabel) components[7]).setIcon( new ImageIcon(NoiseGen.addNoiseToImage(noiseCompFile, STDDArray[STDDChoice])));
 			((JLabel) components[7]).setVisible(true);
 			((JLabel) components[8]).setVisible(false);
 			((JLabel) components[9]).setVisible(false);
@@ -260,7 +250,7 @@ public class MainScreen implements KeyListener, ActionListener {//extends ImageH
 		}
 		
 		// this shows the comparison conditions. The side the conditions are on is randomized.
-		else if (noiseOrComp == false) { //comp[8] is left
+		else if (noiseOrComp == false && (numberOfTrials != currentTrial-1)) { //comp[8] is left
 			//System.out.print("showing comp.\n");
 			String A1 = imageObjects[folderToUse].pickRandomCompCond1();
 			String B1 = imageObjects[folderToUse].pickRandomCompCond2();
@@ -291,7 +281,7 @@ public class MainScreen implements KeyListener, ActionListener {//extends ImageH
 		final Component[] components = frame.getContentPane().getComponents();//tells the event what components (objects on the screen) exist.
 		long systemTimeTaken;
 		
-		//The spacebar is used for the tutorials, but not in the program itself (yet).
+		//The spacebar is used for the tutorials, And to continue after you reach a breakpoint.
 		if (inputKey.getKeyChar() == ' '){
 			if (TutorialPosition == 0){
 				((JLabel) components[5]).setText("This is an example of the image covered in noise you will see."); // you must tell the program that the component it is talking to is a JLabel or it wont work.
@@ -319,6 +309,9 @@ public class MainScreen implements KeyListener, ActionListener {//extends ImageH
 			else if (TutorialPosition == 4 && takeBreak == true){
 				startTrial();
 			}
+			else if (tickoverLocationCount == -1){
+				System.exit(0);
+			}
 		}
 		
 		//if the key pressed was j, then do...
@@ -336,6 +329,7 @@ public class MainScreen implements KeyListener, ActionListener {//extends ImageH
 			//it selects the right hand image. correct/incorrect and current time are recorded.
 			else if ((TutorialPosition == 4) && (tickoverLocationCount > 2) && (takeBreak == false)){//the 4 means you aren't in the tutorial anymore.
 				systemTimeTaken = System.currentTimeMillis();
+				System.out.print(ResPack.whichTrial + " is whichtrial and time taken is " +(findTimeTaken(systemTimeTaken) / 1000) );
 				ResPack.packageTimeTaken(findTimeTaken(systemTimeTaken) / 1000);
 				if (imageObjects[folderToUse].isJ == true){
 					ChoiceArray[TrialCounter] = 'C';
@@ -420,7 +414,7 @@ public class MainScreen implements KeyListener, ActionListener {//extends ImageH
 		
 		//This if shows the comparison image and the noise overlay on top of it, then sets a timer so
 		//it is only displayed for one second.
-		if (numberOfTrials == currentTrial){
+		if (numberOfTrials < currentTrial){
 			hideAll();
 			tickoverLocationCount = -1;
 		}
@@ -487,16 +481,30 @@ public class MainScreen implements KeyListener, ActionListener {//extends ImageH
 	@Override
 	public void keyTyped(KeyEvent inputKey){/*functiongoeshere*/}
 	
+	
+	//This function pulls in the configuration file, loads it into an array, then passes it to the fill array function
+	//in order to pull in all of the images. if the config file doesn't exist, the program wont run.
 	private void loadFileToArr(){
 		if (firstRun == true){
 			//System.out.print(configTracker);
 			String path = "images/config.txt";
-			FileInputStream configFile = null;
+				FileInputStream configFile = null;
 			try {
 				configFile = new FileInputStream(path);
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				FileWriter fw = null;
+				try {
+					fw = new FileWriter("Errors.txt", false);
+				} catch (IOException F) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				PrintWriter pw = new PrintWriter(fw, true);
+				pw.println("Error, file " + path + " does not exist.");
+				pw.close();
+				System.exit(0);
 			}
 			BufferedReader in = new BufferedReader(new InputStreamReader(configFile));
 		
@@ -515,6 +523,8 @@ public class MainScreen implements KeyListener, ActionListener {//extends ImageH
 		fillArrays(configTracker);
 	}
 	
+	//this file uses the array from the previous function in order to pull in all of the images listed in the config file,
+	//as well as how many trials the experementer has decided on. 
 	private void fillArrays(int arrToFill){ // this should also be in imagehandler
 		String input = "null";
 		int typeOfInput = 0;
@@ -524,11 +534,22 @@ public class MainScreen implements KeyListener, ActionListener {//extends ImageH
 		typeOfInput = 0;
 		CRIcount = 0;
 		arrCount = 0;
+		FileWriter fw = null;
+			try {
+				fw = new FileWriter("Errors.txt", false);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			PrintWriter pw = new PrintWriter(fw, true);
+		boolean wasError = false;
 		
 		
 		input = configReadIn[CRIcount];
+		File testForExistance = new File(input);
 		while (!(input.startsWith("End:"))){
 			//System.out.print(input + "\n");
+			
 			if(input.startsWith("Test")){
 				if(typeOfInput == 3){
 					imageObjects[numberOfFoldersInUse].setNOCC2(arrCount);
@@ -554,25 +575,35 @@ public class MainScreen implements KeyListener, ActionListener {//extends ImageH
 				System.out.print(numberOfTrials);
 				
 			}
-			else if (typeOfInput == 1 &&input.startsWith("image")){
-				
+			else if (typeOfInput == 1 &&input.startsWith("image") && testForExistance.exists()){
+				System.out.print ("Arrcount is " +arrCount+" and CRI is " +configReadIn[CRIcount]+"\n");
 				imageObjects[numberOfFoldersInUse].insertNoiseCond(arrCount, configReadIn[CRIcount]);
 				arrCount++;
 			}
-			else if (typeOfInput == 2 && input.startsWith("image")){
-				//System.out.print ("Arrcount is " +arrCount+"\n");
+			else if (typeOfInput == 2 && input.startsWith("image") && testForExistance.exists()){
+				System.out.print ("Arrcount is " +arrCount+" and CRI is " +configReadIn[CRIcount]+"\n");
 				imageObjects[numberOfFoldersInUse].insertCompCond1(arrCount, configReadIn[CRIcount]);
 				arrCount++;
 			}			
-			else if (typeOfInput == 3 && input.startsWith("image")){
-				//System.out.print ("Arrcount is " +arrCount+"\n");
+			else if (typeOfInput == 3 && input.startsWith("image") && testForExistance.exists()){
+				System.out.print ("Arrcount is " +arrCount+" and CRI is " +configReadIn[CRIcount]+"\n");
 				imageObjects[numberOfFoldersInUse].insertCompCond2(arrCount, configReadIn[CRIcount]);
 				arrCount++;
 			}
+			else if (input.startsWith("image") && !testForExistance.exists()){
+				pw.println("Error, file " + configReadIn[CRIcount] + " does not exist.");
+				wasError = true;
+			}
 			CRIcount ++;
 			input = configReadIn[CRIcount];
+			testForExistance = new File(input);
 		}
 		imageObjects[numberOfFoldersInUse].setNOCC2(arrCount);
 		numberOfFoldersInUse += 1;
+		pw.close();
+		if (wasError==true){
+			System.exit(0);
+		}
 	}
+
 }

@@ -1,3 +1,8 @@
+//Rob Hicks
+//CS 4444
+//identification through noise psychology experiment.
+
+//this class file is what allows the main program to store all of the locations of the images it will use.
 
 public class ImageHandler {
 	private int numberOfCompConditions1;
@@ -13,7 +18,7 @@ public class ImageHandler {
 		Setup();
 	}
 	
-	private void Setup(){
+	private void Setup(){ // initilizes all of the values.
 		numberOfCompConditions1 = 20;
 		numberOfCompConditions2 = 20;
 		numberOfNoiseConditions = 2;
@@ -45,7 +50,8 @@ public class ImageHandler {
 		comparisonConditionArray2[location] = input;
 	}
 	
-	public String pickRandomNoiseCond(){
+	public String pickRandomNoiseCond(){//picks a random noise condition from the array, and then sets then bool that tells
+										//the program which one was picked.
 		int WIP = (int)(Math.random()*numberOfNoiseConditions);
 		System.out.print("Showing Image "+WIP + "\n");
 		if (WIP == 0){
@@ -73,52 +79,54 @@ Example of the configuration file.
 For this program, a configuration file is used in order to tell it where each of the different images it is supposed to use is located, and how they are associated
 with each other. This file is located inside the images folder itself, not in any of the subdirectories.
 
-For example, inside the image folder if you have a folder called "set1" that contains two test images and 4 comparison images for each of them.
-your configuration file would look like this:
+For example, inside the image folder if you have a folder called "set1" that contains two test images 
+and 4 comparison images for each of them. your configuration file would look like this:
+Trials:
+75
 
 Test:
-set1/yourtest1.jpg
-set1/yourtest2.jpg
+images/set1/yourtest1.jpg
+images/set1/yourtest2.jpg
 Imageset1:
-set1/yourcomparison1.jpg
-set1/yourcomparison2.jpg
-set1/yourcomparison3.jpg
-set1/yourcomparison4.jpg
+images/set1/yourcomparison1.jpg
+images/set1/yourcomparison2.jpg
+images/set1/yourcomparison3.jpg
+images/set1/yourcomparison4.jpg
 Imageset2:
-set1/yourcomparison1.jpg
-set1/yourcomparison2.jpg
-set1/yourcomparison3.jpg
-set1/yourcomparison4.jpg
+images/set1/yourcomparison1.jpg
+images/set1/yourcomparison2.jpg
+images/set1/yourcomparison3.jpg
+images/set1/yourcomparison4.jpg
 end:
 
 If you have multiple foulders in your images directory, the config file would look like this:
 Test:
-set1/yourtest1.jpg
-set1/yourtest2.jpg
+images/set1/yourtest1.jpg
+images/set1/yourtest2.jpg
 Imageset1:
-set1/yourcomparison1.jpg
-set1/yourcomparison2.jpg
-set1/yourcomparison3.jpg
-set1/yourcomparison4.jpg
+images/set1/yourcomparison1.jpg
+images/set1/yourcomparison2.jpg
+images/set1/yourcomparison3.jpg
+images/set1/yourcomparison4.jpg
 Imageset2:
-set1/yourcomparison1.jpg
-set1/yourcomparison2.jpg
-set1/yourcomparison3.jpg
-set1/yourcomparison4.jpg
+images/set1/yourcomparison1.jpg
+images/set1/yourcomparison2.jpg
+images/set1/yourcomparison3.jpg
+images/set1/yourcomparison4.jpg
 
 Test:
-set2/yourtest1.jpg
-set2/yourtest2.jpg
+images/set2/yourtest1.jpg
+images/set2/yourtest2.jpg
 Imageset1:
-set2/yourcomparison1.jpg
-set2/yourcomparison2.jpg
-set2/yourcomparison3.jpg
-set2/yourcomparison4.jpg
+images/set2/yourcomparison1.jpg
+images/set2/yourcomparison2.jpg
+images/set2/yourcomparison3.jpg
+images/set2/yourcomparison4.jpg
 Imageset2:
-set2/yourcomparison1.jpg
-set2/yourcomparison2.jpg
-set2/yourcomparison3.jpg
-set2/yourcomparison4.jpg
+images/set2/yourcomparison1.jpg
+images/set2/yourcomparison2.jpg
+images/set2/yourcomparison3.jpg
+images/set2/yourcomparison4.jpg
 end:
 
 .

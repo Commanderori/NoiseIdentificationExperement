@@ -1,3 +1,9 @@
+//Rob Hicks and Cody Woodard.
+//CS 4444
+// identification through noise psychology experiment.
+
+//This file packages all of the required information into a text file called "results.txt" for easy return to the experimenter.
+
 import java.io.*;
 
 
@@ -8,15 +14,8 @@ public class ResultPackager {
 	int[] levelOfNoise;
 	int whichTrial = -1;
 	FileWriter fw;
-	
-	
-	
+
 public ResultPackager (){
-	
-	
-	
-	
-	
 	timeTakentoChooseImage = new double[100];
 	choseCorrectlyOrIncorrectly = new boolean[100];
 	levelOfNoise = new int[100];
@@ -40,25 +39,25 @@ public void packageNoiseLevel(int noise){
 	
 	switch(noise) {
 		
-		case 5: noise = 1;
+		case 25: noise = 1;
 				break;
-		case 15: noise = 2;
+		case 55: noise = 2;
 				break;
-		case 25: noise = 3;
+		case 75: noise = 3;
 				break;
-		case 35: noise = 4;
+		case 125: noise = 4;
 				break;
-		case 45: noise = 5;
+		case 200: noise = 5;
 				break;
-		case 65: noise = 6;
+		case 300: noise = 6;
 				break;
-		case 80: noise = 7;
+		case 400: noise = 7;
 				break;
-		case 90: noise = 8;
+		case 550: noise = 8;
 				break;
-		case 105: noise = 9;
+		case 750: noise = 9;
 				break;
-		case 115: noise = 10;
+		case 950: noise = 10;
 				break;
 		default: System.out.println("Invalid Noise level");
 				problem = true;
@@ -80,10 +79,10 @@ public void packageTimeTaken (double timer){
 public void packageChoiceAccuracy (boolean correct){
 	
 	choseCorrectlyOrIncorrectly[whichTrial] = correct;
-	if (choseCorrectlyOrIncorrectly[whichTrial] == true)
+	/*if (choseCorrectlyOrIncorrectly[whichTrial] == true)
 		System.out.println("Successful!  They were: correct.");
 	else 
-		System.out.println("Successful!  They were: incorrect.");
+		System.out.println("Successful!  They were: incorrect.");*/
 }
 	
 public void packageResults (){ 
@@ -105,7 +104,7 @@ public void packageResults (){
 	
 	
 	
-	for (i=0; i<whichTrial; i++){
+	for (i=1; i<whichTrial-1; i++){
 		
 		pw.print("Trial: " + j+"  ");
 		

@@ -4,11 +4,11 @@
 		<item value="205" key="DIALOG_Y_ORIGIN"/>
 		<item value="381" key="DIALOG_X_ORIGIN"/>
 	</section>
-	<section name="ExternalProjectImportWizard">
-	</section>
 	<section name="WORKBENCH_SETTINGS">
 		<list key="ENABLED_TRANSFERS">
 		</list>
+	</section>
+	<section name="ExternalProjectImportWizard">
 	</section>
 	<section name="ResourceNavigator">
 		<item value="Aggregate for window 1391651274698" key="ResourceWorkingSetFilter.STORE_WORKING_SET"/>
